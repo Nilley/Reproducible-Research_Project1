@@ -1,0 +1,28 @@
+---
+title: "PA1_TEMPLATE"
+author: "Nilley"
+date: "21 de abril de 2016"
+output: html_document
+---
+
+#Reproducible Researche Project 1
+
+This assignment makes use of data from a personal activity monitoring device. This device collects data at 5 minute intervals through out the day. The data consists of two months of data from an anonymous individual collected during the months of October and November, 2012 and include the number of steps taken in 5 minute intervals each day.
+
+### Loading Library
+```{r, echo=TRUE, results='hide'}
+library(ggplot2)
+library(scales)
+library(plyr)
+library(lattice)
+library(data.table)
+library(httr)
+```
+
+### 1. Reading in the dataset and/or processing the data
+```{r, echo=TRUE, results='markup', warning=TRUE, message=TRUE}
+if(!file.exists('activity.csv')){
+    unzip('activity.zip')
+}
+activityData <- read.csv('activity.csv')
+```
