@@ -2,7 +2,7 @@
 title: "Reproducible Researche Project 1"
 author: "Nilley"
 date: "21 de abril de 2016"
-output: word_document
+output: html_document
 ---
 
 #Reproducible Researche Project 1
@@ -144,3 +144,5 @@ ggplot(averagedActivityImputed, aes(interval, steps)) +
     xlab("5-minute interval") + 
     ylab("avarage number of steps")
 ```
+
+###End
