@@ -74,6 +74,7 @@ averageStepsPerTime <- aggregate(x=list(meanSteps=activityData$steps), by=list(i
 
 #### 1. Make a time series plot
 ```{r, echo=TRUE}
+
 ggplot(data=averageStepsPerTime, aes(x=interval, y=meanSteps)) +
     geom_line(colour="blue") +
     xlab("interval 5-minute ") +
@@ -103,15 +104,43 @@ numMissingValues <- length(which(is.na(activityData$steps)))
 
 ##### 2. Devise a strategy for filling in all of the missing values in the dataset.
 ##### 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
-```{r}
+```{r, echo=TRUE}
 activityDataImputed <- activityData
 activityDataImputed$steps <- impute(activityData$steps, fun=mean)
 ```
 
 #### 4. Make a histogram of the total number of steps taken each day 
-```{r}
+```{r, echo=TRUE}
 stepsDayImputed <- tapply(activityDataImputed$steps, activityDataImputed$date, sum)
+
 qplot(stepsDayImputed, geom = "histogram", fill = I("blue"), colour = "red", xlab='Total steps per day (Imputed)', ylab='Frequency using binwith 800', binwidth=800)
 ```
 
+#### The Mean and Median total number of steps taken per day. 
+```{r, echo=TRUE}
+stepsDayMeanImputed <- mean(stepsDayImputed)
+stepsDayMedianImputed <- median(stepsDayImputed)
+```
+* Mean - Imputed: `r stepsDayMeanImputed`
+* Median - Imputed:  `r stepsDayMedianImputed`
 
+
+## Are there differences in activity patterns between weekdays and weekends?
+
+#### 1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+
+```{r, echo=TRUE}
+activityDataImputed$dateType <-  ifelse(as.POSIXlt(activityDataImputed$date)$wday %in% c(0,6), 'weekend', 'weekday')
+```
+
+#### 2. Make a panel plot containing a time series plot
+
+```{r, echo=TRUE}
+averagedActivityImputed <- aggregate(steps ~ interval + dateType, data=activityDataImputed, mean)
+
+ggplot(averagedActivityImputed, aes(interval, steps)) + 
+    geom_line(colour = "cyan") + 
+    facet_grid(dateType ~ .) +
+    xlab("5-minute interval") + 
+    ylab("avarage number of steps")
+```
