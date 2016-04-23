@@ -2,7 +2,7 @@
 title: "Reproducible Researche Project 1"
 author: "Nilley"
 date: "21 de abril de 2016"
-output: html_document
+output: word_document
 ---
 
 #Reproducible Researche Project 1
