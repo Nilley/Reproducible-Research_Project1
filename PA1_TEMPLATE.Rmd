@@ -54,11 +54,28 @@ stepsDay <- tapply(activityData$steps, activityData$date, sum, na.rm=TRUE)
 qplot(stepsDay, xlab='Total Steps per Day', ylab='Frequency using binwith 800', binwidth=800)
 ```
 
-##### 3. Mean and median number of steps taken each day
+#### 3. Mean and median number of steps taken each day
 
-```{r}
+```{r, echo=TRUE}
 stepsDayMean <- mean(stepsDay)
 stepsDayMedian <- median(stepsDay)
 ```
 * Mean: `r stepsDayMean`
 * Median:  `r stepsDayMedian`
+
+## What is the average daily activity pattern?
+
+#### Average daily
+```{r, echo=TRUE}
+averageStepsPerTime <- aggregate(x=list(meanSteps=activityData$steps), by=list(interval=activityData$interval), FUN=mean, na.rm=TRUE)
+```
+
+
+#### 1. Make a time series plot
+```{r, echo=TRUE}
+ggplot(data=averageStepsPerTime, aes(x=interval, y=meanSteps)) +
+    geom_line(colour="blue") +
+    xlab("interval 5-minute ") +
+    ylab("average of steps taken") 
+```
+
