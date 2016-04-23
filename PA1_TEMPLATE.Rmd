@@ -9,7 +9,9 @@ output: html_document
 
 This assignment makes use of data from a personal activity monitoring device. This device collects data at 5 minute intervals through out the day. The data consists of two months of data from an anonymous individual collected during the months of October and November, 2012 and include the number of steps taken in 5 minute intervals each day.
 
-### Loading Library
+## Loading and preprocessing the data
+
+#### Loading Library
 ```{r, echo=TRUE, results='hide'}
 source("ipak.R")
 library(ggplot2)
@@ -20,7 +22,7 @@ library(data.table)
 library(httr)
 ```
 
-### 1. Reading in the dataset and/or processing the data
+#### Reading in the dataset and/or processing the data
 ```{r, echo=TRUE, results='markup', warning=TRUE, message=TRUE}
 
 figures <- "figures" 
@@ -36,7 +38,10 @@ w_file <- paste(getwd(), "/activity.csv", sep = "")
 activityData <- read.table(file = w_file, header = TRUE, sep = ",")
 ```
 
-### 2. Histogram of the total number of steps taken each day
+## What is mean total number of steps taken per day?
+
+#### 1. Calculate the total number of steps taken per day and 
+#### 2. Make Histogram of the total number of steps taken each day
 
 ```{r, echo=TRUE}
 #transform the data 
@@ -49,3 +54,11 @@ stepsDay <- tapply(activityData$steps, activityData$date, sum, na.rm=TRUE)
 qplot(stepsDay, xlab='Total Steps per Day', ylab='Frequency using binwith 800', binwidth=800)
 ```
 
+##### 3. Mean and median number of steps taken each day
+
+```{r}
+stepsDayMean <- mean(stepsDay)
+stepsDayMedian <- median(stepsDay)
+```
+* Mean: `r stepsDayMean`
+* Median:  `r stepsDayMedian`
